@@ -7,4 +7,12 @@ public class PageParams {
     private int page =1;
 
     private  int pageSize=10;
+
+    public int getPage() {
+        return page;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
 }

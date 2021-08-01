@@ -21,6 +21,6 @@ public class ArticleController {
     @PostMapping
         public Result listArticle(@RequestBody PageParams pageParams){
 
-        return articleService.listArtice(pageParams);
+        return articleService.listAreticle(pageParams);
     }
 }

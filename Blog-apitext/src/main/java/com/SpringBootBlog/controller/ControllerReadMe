@@ -1,0 +1,13 @@
+写 校验  转发
+
+@RestController = @Controller （表明控制器类 成为一个请求处理的）
+                注入 IOC 容器  是所在项目跑起来的过程  实例化 该类    充当Cpmtroller的作用
+
+                +  @ResponseBody 不能返回 html 页面
+                让所有返回的对象以Json字符串的形式返回给客户端
+                如果是String类型的话   那么返回的 还是 String
+
+
+@RequestMapping  标注类的  或者方法的  请求路径  根据请求路径映射到具体的类 或者方法
+        value = “xxx”  表名类或方法的路径    value的 值可以指定多个  表示多个地址 映射到类或者方法
+          method  用于定义http的 请求方式

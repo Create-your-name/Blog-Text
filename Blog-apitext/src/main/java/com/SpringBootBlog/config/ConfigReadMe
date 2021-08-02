@@ -1,0 +1,13 @@
+配置类 的存放地址   系统配置文件
+各种 设置保存的地方
+
+@Configuration  作用：替换xml配置文件 被注解的类中 包含 @Bean的 方法   构建bean的定义 初始化spring 容器
+用@Configuration 配置spring 并启动spring容器
+    启动容器内 @bean 注册bean
+@Configruation 标注在类上 相当于 在 spring的 xml 配置文件中 加上<beans> 注册bean对象
+
+
+@MapperScan
+    作用：指定要变成实现类的 接口所在的包  在包的接口编译时会生成对于的 实现类
+    指定要扫描mapper类包的路径
+

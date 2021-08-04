@@ -9,6 +9,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         // 跨域配置  从 8080 转到 8888端口
-        registry.addMapping("/**").allowedOrigins("http://localhost:8080");
+        registry.addMapping("/**").allowedOrigins("http://localhost:8081");
     }
 }

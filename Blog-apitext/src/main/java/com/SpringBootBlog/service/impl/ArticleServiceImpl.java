@@ -25,10 +25,10 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private ArticleMapper articleMapper;
-/*    @Autowired
+    @Autowired
     private TagService tagService;
     @Autowired
-    private SysUserService sysUserService;*/
+    private SysUserService sysUserService;
     @Override
     public Result listAreticle(PageParams pageParams) {
          /*
@@ -61,14 +61,14 @@ public class ArticleServiceImpl implements ArticleService {
         BeanUtils.copyProperties(article,articleVo);
         articleVo.setCreateDate(new DateTime(article.getCreateDate()).toString("yyyy-MM-dd HH：mm"));
         //并不是所有接口都需要标签 作者信息
-/*        if (isTag){
+       if (isTag){
             Long articleId = article.getId();
             articleVo.setTags(tagService.findTagsByArtickleId(articleId));
         }
-        if (isAuthor){
+         if (isAuthor){
             Long authorId =article.getAuthorId();
             articleVo.setAuthor(sysUserService.findUserById(authorId).getNickname());
-        }*/
+        }
         return articleVo;
     }
 }

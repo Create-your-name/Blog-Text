@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@MapperScan("com.SpringBootBlog.dao.mapper")
+@MapperScan("com.SpringBootBlog.dao.mappers")
 public class MybatisPlusonfig {
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor(){

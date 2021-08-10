@@ -19,4 +19,22 @@ public interface ArticleService {
       *@return
       */
     Result hotArtice(int limit);
+
+    /**
+      *最新文章
+      *@Author 刘海
+      *@Data 14:55 2021/8/10
+      *@Param
+      *@return
+      */
+    Result newArticles(int limit);
+
+    /**
+      *   文章归档
+      *@Author 刘海
+      *@Data 15:17 2021/8/10
+      *@Param
+      *@return
+      */
+    Result listArchives();
 }

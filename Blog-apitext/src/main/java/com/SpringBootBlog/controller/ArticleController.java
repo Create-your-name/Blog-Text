@@ -20,9 +20,40 @@ public class ArticleController {
         public Result listArticle(@RequestBody PageParams pageParams){
         return articleService.listAreticle(pageParams);
     }
+    /**
+      *首页 最热文章
+      *@Author 刘海
+      *@Data 14:53 2021/8/10
+      *@Param
+      *@return
+      */
     @PostMapping("hot")
     public Result hotArticle(){
         int limit = 5;
         return articleService.hotArtice(limit);
+    }
+    /**
+      * 最新文章
+      *@Author 刘海
+      *@Data 14:54 2021/8/10
+      *@Param
+      *@return
+      */
+    @PostMapping("new")
+    public Result newArticles(){
+        int limit = 5;
+        return articleService.newArticles(limit);
+    }
+
+    /**
+     * 最新文章
+     *@Author 刘海
+     *@Data 14:54 2021/8/10
+     *@Param
+     *@return
+     */
+    @PostMapping("listArchives")
+    public Result listArchives(){
+        return articleService.listArchives();
     }
 }

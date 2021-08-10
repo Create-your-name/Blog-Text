@@ -1,5 +1,6 @@
 package com.SpringBootBlog.service.impl;
 
+import com.SpringBootBlog.dao.dos.Archives;
 import com.SpringBootBlog.dao.mapper.ArticleMapper;
 import com.SpringBootBlog.dao.pojo.Article;
 import com.SpringBootBlog.service.ArticleService;
@@ -67,6 +68,24 @@ public class ArticleServiceImpl implements ArticleService {
         List<Article> articles = articleMapper.selectList(queryWrapper);
 
         return Result.success(copyList(articles,false,false));
+    }
+
+    @Override
+    public Result newArticles(int limit) {
+        LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.orderByDesc(Article::getCreateDate);
+        queryWrapper.select(Article::getId,Article::getTitle);
+        queryWrapper.last("limit "+limit);
+        //select id,title from article order by create_date desc limit 5
+        List<Article> articles = articleMapper.selectList(queryWrapper);
+
+        return Result.success(copyList(articles,false,false));
+    }
+
+    @Override
+    public Result listArchives() {
+        List<Archives> archivesList =articleMapper.listArchives();
+        return  Result.success(archivesList);
     }
 
     private List<ArticleVo> copyList(List<Article> records, boolean isTag, boolean isAuthor) {

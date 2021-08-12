@@ -13,11 +13,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Service
+//事务注释
+@Transactional
 public class LoginServiceImpl implements LoginService {
 
     @Autowired
@@ -46,8 +49,8 @@ public class LoginServiceImpl implements LoginService {
                 return Result.fail(ErrorCode.PARAMS_ERROR.getCode(),ErrorCode.PARAMS_ERROR.getMsg());
         }
         // 数据库中 加密的 密码 处理过程
-        password = DigestUtils.md5Hex(password + slat);
-        SysUser sysUser=sysUserService.findUser(account,password);
+        String pwd = DigestUtils.md5Hex(password + slat);
+        SysUser sysUser=sysUserService.findUser(account,pwd);
         //
         if (sysUser == null){
             return Result.fail(ErrorCode.ACCOUNT_PWD_NOT_EXIST.getCode(),ErrorCode.ACCOUNT_PWD_NOT_EXIST.getMsg());
@@ -73,5 +76,64 @@ public class LoginServiceImpl implements LoginService {
         }
         SysUser sysUser = JSON.parseObject(userJson ,SysUser.class);
         return sysUser;
+    }
+
+    @Override
+    public Result logout(String token) {
+        redisTemplate.delete("Token"+token);
+        return Result.success(null);
+    }
+
+
+    /**
+      * 注册功能
+      *@Author 刘海
+      *@Data 22:07 2021/8/12
+      *@Param
+      *@return
+      */
+    @Override
+    public Result register(LoginParam loginParam) {
+        /**
+          * 参数是否合法
+         *  判断账户是否 存在
+         *  存在 返回被注册
+         *  如果账户不存在  注册用户
+         *  生成token 存入 redis 返回
+         *  注意加上事务 ， 一旦 中间 过程出现问题 那么 就回滚
+          *@Author 刘海
+          *@Data 22:07 2021/8/12
+          *@Param
+          *@return
+          */
+        String account = loginParam.getAccount();
+        String password =loginParam.getPassword();
+        String nickname = loginParam.getNickname();
+        if( StringUtils.isBlank(account)
+                || StringUtils.isBlank(password)
+                || StringUtils.isBlank(nickname)){
+            return  Result.fail(ErrorCode.PARAMS_ERROR.getCode(), ErrorCode.PARAMS_ERROR.getMsg());
+        }
+        SysUser sysUser = sysUserService.findUserByAccount(account);
+        if(sysUser != null){
+            return  Result.fail(ErrorCode.ACCOUNT_EXIST.getCode(), "账户已经被注册");
+        }
+        sysUser = new SysUser();
+        sysUser.setNickname(nickname);
+        sysUser.setAccount(account);
+        sysUser.setPassword(DigestUtils.md5Hex(password+slat));
+        sysUser.setCreateDate(System.currentTimeMillis());
+        sysUser.setLastLogin(System.currentTimeMillis());
+        sysUser.setAvatar("/static/img/logo.b3a48c0.png");
+        sysUser.setAdmin(1);
+        sysUser.setDeleted(0);
+        sysUser.setSalt("");
+        sysUser.setStatus("");
+        sysUser.setEmail("");
+        this.sysUserService.sava(sysUser);
+        String  token = JWTUtils.createToken(sysUser.getId());
+        redisTemplate.opsForValue().set("Token"+token, JSON.toJSONString(sysUser),1, TimeUnit.DAYS);
+
+        return Result.success(token);
     }
 }

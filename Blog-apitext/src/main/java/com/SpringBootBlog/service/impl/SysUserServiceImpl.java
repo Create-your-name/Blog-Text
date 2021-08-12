@@ -64,5 +64,29 @@ public class SysUserServiceImpl implements SysUserService {
         loginUserVo.setAccount(sysUser.getAccount());
         return Result.success(loginUserVo);
     }
+
+    @Override
+    public SysUser findUserByAccount(String account) {
+        LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(SysUser::getAccount,account);
+        queryWrapper.last(("limit 1"));
+
+        return this.sysUserMapper.selectOne(queryWrapper);
+    }
+
+    @Override
+    public void sava(SysUser sysUser) {
+        /**
+          *     保存用户 id 自递增
+         *      分布式id  雪花算法
+         *
+          *@Author 刘海
+          *@Data 22:24 2021/8/12
+          *@Param
+          *@return
+          */
+
+        this.sysUserMapper.insert(sysUser);
+    }
 }
 

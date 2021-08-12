@@ -15,4 +15,21 @@ public interface SysUserService {
       *@return
       */
     Result findUserByToken(String token);
+    /**
+      *     注册功能  查找用户
+      *@Author 刘海
+      *@Data 22:20 2021/8/12
+      *@Param
+      *@return
+      */
+    SysUser findUserByAccount(String account);
+
+    /**
+      * 保存用户
+      *@Author 刘海
+      *@Data 22:21 2021/8/12
+      *@Param
+      *@return
+      */
+    void sava(SysUser sysUser);
 }

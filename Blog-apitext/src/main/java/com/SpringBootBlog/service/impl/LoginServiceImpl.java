@@ -57,7 +57,7 @@ public class LoginServiceImpl implements LoginService {
         }
         String  token = JWTUtils.createToken(sysUser.getId());
         redisTemplate.opsForValue().set("Token"+token, JSON.toJSONString(sysUser),1, TimeUnit.DAYS);
-
+        System.out.println("=========================================================Token"+token);
         return Result.success(token);
     }
 
@@ -70,7 +70,8 @@ public class LoginServiceImpl implements LoginService {
         if (stringObjectMap == null ){
             return null;
         }
-        String userJson = redisTemplate.opsForValue().get("TOKEN" +token);
+        String userJson = redisTemplate.opsForValue().get("Token" +token);
+
         if(StringUtils.isBlank(userJson)){
             return  null;
         }

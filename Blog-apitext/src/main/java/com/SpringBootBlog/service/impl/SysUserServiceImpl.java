@@ -53,6 +53,7 @@ public class SysUserServiceImpl implements SysUserService {
           *@return
           */
 
+
         SysUser sysUser = loginService.checkToken(token);
         if(StringUtils.isBlank(token)){
             Result.fail(ErrorCode.TOKEN_ERROR.getCode(),ErrorCode.TOKEN_ERROR.getMsg());

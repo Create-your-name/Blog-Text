@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("user")
+@RequestMapping("users")
 public class UserController {
     @Autowired
     private SysUserService sysUserService;
 
     @GetMapping("currentUser")
-    public Result currentUser(@RequestHeader("Authorization") String token){
+    public Result currentUser(@RequestHeader("Authorization") String token) {
 
-            return  sysUserService.findUserByToken(token);
+        return sysUserService.findUserByToken(token);
     }
 }

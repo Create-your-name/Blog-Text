@@ -2,6 +2,7 @@ package com.SpringBootBlog.handler;
 
 import com.SpringBootBlog.dao.pojo.SysUser;
 import com.SpringBootBlog.service.LoginService;
+import com.SpringBootBlog.utils.UserThreadLocal;
 import com.SpringBootBlog.vo.ErrorCode;
 import com.SpringBootBlog.vo.Result;
 import com.alibaba.fastjson.JSON;
@@ -63,6 +64,31 @@ public class LoginInterceptor implements HandlerInterceptor {
             return  false ;
         }
         //成功
+        /**
+          *  获取用户信息
+          *@Author 刘海
+          *@Data 16:53 2021/8/15
+          *@Param
+          *@return
+          */
+        UserThreadLocal.put(sysUser);
             return true;
+    }
+
+    @Override
+    /**
+      *  方法 在拦截器中   代表 所有方法执行完毕  做收尾工作
+     *  在线程 未关闭之前  在User用户信息 没用之后 就删掉
+     *
+     *      重点！！！！为什么会内存泄漏      p 17
+     *
+      *@Author 刘海
+      *@Data 17:09 2021/8/15
+      *@Param
+      *@return
+      */
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        //  不删除 ThreadLocal 中用完的信息  会有 内存泄漏的风险
+        UserThreadLocal.remove();
     }
 }

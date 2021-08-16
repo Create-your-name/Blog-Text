@@ -37,4 +37,12 @@ public interface ArticleService {
       *@return
       */
     Result listArchives();
+    /**
+      * 查看文章 详情
+      *@Author 刘海
+      *@Data 16:39 2021/8/16
+      *@Param
+      *@return
+      */
+    Result findArticleById(Long articleId);
 }

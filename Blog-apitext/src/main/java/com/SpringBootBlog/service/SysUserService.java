@@ -2,8 +2,11 @@ package com.SpringBootBlog.service;
 
 import com.SpringBootBlog.dao.pojo.SysUser;
 import com.SpringBootBlog.vo.Result;
+import com.SpringBootBlog.vo.UserVo;
 
 public interface SysUserService {
+
+    UserVo findUserVoById(Long Id);
     SysUser findUserById (Long id);
 
     SysUser findUser(String account, String password);

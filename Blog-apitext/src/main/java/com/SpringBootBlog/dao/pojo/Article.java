@@ -15,9 +15,17 @@ public class Article {
 
     private String summary;
 
-    private int commentCounts;
+    /**
+      *     pojo 和 数据映射的 不能出现基本类型的操作
+     *      必须 要更新为封装类型 要不然 会 更新不成功
+      *@Author 刘海
+      *@Data 22:28 2021/8/17
+      *@Param
+      *@return
+      */
+    private Integer commentCounts;
 
-    private int viewCounts;
+    private Integer viewCounts;
 
     /**
      * 作者id
@@ -35,7 +43,15 @@ public class Article {
     /**
      * 置顶
      */
-    private int weight = Article_Common;
+    /**
+      *     pojo 和 数据映射的 不能出现基本类型的操作
+     *       必须 要更新为封装类型 要不然 会 更新不成功
+      *@Author 刘海
+      *@Data 22:30 2021/8/17
+      *@Param
+      *@return
+      */
+    private Integer weight = Article_Common;
 
 
     /**

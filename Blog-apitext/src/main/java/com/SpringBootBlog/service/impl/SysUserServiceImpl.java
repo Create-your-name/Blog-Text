@@ -8,8 +8,10 @@ import com.SpringBootBlog.service.SysUserService;
 import com.SpringBootBlog.vo.ErrorCode;
 import com.SpringBootBlog.vo.LoginUserVo;
 import com.SpringBootBlog.vo.Result;
+import com.SpringBootBlog.vo.UserVo;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,21 @@ public class SysUserServiceImpl implements SysUserService {
     private SysUserMapper sysUserMapper;
     @Autowired
     private LoginService loginService;
+
+    @Override
+    public UserVo findUserVoById(Long Id) {
+        SysUser sysUser =sysUserMapper.selectById(Id);
+        if (sysUser ==null){
+            sysUser = new SysUser();
+            sysUser.setId(1L);
+            sysUser.setAvatar("/static/");
+            sysUser.setNickname("刘海真棒");
+        }
+        UserVo userVo =new UserVo();
+        BeanUtils.copyProperties(sysUser,userVo);
+        return userVo;
+    }
+
     @Override
     public SysUser findUserById(Long id) {
         SysUser sysUser =sysUserMapper.selectById(id);
@@ -28,6 +45,7 @@ public class SysUserServiceImpl implements SysUserService {
         }
         return sysUser;
     }
+
 
     @Override                               // 密码 理论上是加密的
     public SysUser findUser(String account, String password) {

@@ -51,7 +51,7 @@ public class Article {
       *@Param
       *@return
       */
-    private Integer weight = Article_Common;
+    private Integer weight;
 
 
     /**

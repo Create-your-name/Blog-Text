@@ -28,13 +28,15 @@ public class SysUserServiceImpl implements SysUserService {
         if (sysUser ==null){
             sysUser = new SysUser();
             sysUser.setId(1L);
-            sysUser.setAvatar("/static/");
+            sysUser.setAvatar("/static/img/logo.b3a48c0,png");
             sysUser.setNickname("刘海真棒");
         }
         UserVo userVo =new UserVo();
         BeanUtils.copyProperties(sysUser,userVo);
         return userVo;
     }
+
+
 
     @Override
     public SysUser findUserById(Long id) {

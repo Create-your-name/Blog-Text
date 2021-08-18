@@ -33,7 +33,7 @@ public class CommentsServiceImpl implements CommentsService  {
           *@return
           */
         LambdaQueryWrapper<Comment> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Comment::getArticId ,id);
+        queryWrapper.eq(Comment::getArticleId ,id);
         queryWrapper.eq(Comment::getLevel,1);
         List<Comment> comments =commentMapper.selectList(queryWrapper);
         List<CommentVo> commentVoList =copyList(comments);

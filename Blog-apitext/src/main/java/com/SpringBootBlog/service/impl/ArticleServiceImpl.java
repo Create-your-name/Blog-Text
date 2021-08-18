@@ -58,7 +58,6 @@ public class ArticleServiceImpl implements ArticleService {
         // select id ,title from article order by view_counts desc limit s
         List<Article> articles = articleMapper.selectList(queryWrapper);
         return Result.success(copyList(articles,false,false));*/
-
         LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.orderByDesc(Article::getViewCounts);
         queryWrapper.select(Article::getId,Article::getTitle);

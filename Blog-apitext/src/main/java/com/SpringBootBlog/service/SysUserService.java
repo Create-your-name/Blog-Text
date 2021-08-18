@@ -7,6 +7,7 @@ import com.SpringBootBlog.vo.UserVo;
 public interface SysUserService {
 
     UserVo findUserVoById(Long Id);
+
     SysUser findUserById (Long id);
 
     SysUser findUser(String account, String password);

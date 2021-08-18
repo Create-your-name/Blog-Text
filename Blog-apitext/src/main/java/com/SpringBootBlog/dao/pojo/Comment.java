@@ -10,7 +10,7 @@ public class Comment {
 
     private  Long createDate;
 
-    private  Long articId;
+    private  Long articleId;
 
     private  Long authorId;
 

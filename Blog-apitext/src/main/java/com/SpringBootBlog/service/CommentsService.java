@@ -1,6 +1,7 @@
 package com.SpringBootBlog.service;
 
 import com.SpringBootBlog.vo.Result;
+import com.SpringBootBlog.vo.params.CommentParam;
 
 public interface CommentsService {
     /**
@@ -12,4 +13,5 @@ public interface CommentsService {
       */
     Result commentsByArticleId(Long id);
 
+    Result comment(CommentParam commentParam);
 }

@@ -19,7 +19,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public  void addInterceptors(InterceptorRegistry registry){
         //拦截test接口 ，遇见需要拦截的接口 再配置为 真正的 拦截器
+
         registry.addInterceptor(loginInterceptor)
-                .addPathPatterns("/test");
+                .addPathPatterns("/test")   // 需要拦截的 位置和地址
+                .addPathPatterns("/comments/create/change"); // 需要登入后才能实现的 地址
     }
 }

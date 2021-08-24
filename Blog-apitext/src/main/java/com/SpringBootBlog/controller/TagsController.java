@@ -19,4 +19,8 @@ public class TagsController {
         int limit = 6 ; //查询最热的6个标签
         return tagService.hots(limit);
     }
+    @GetMapping
+    public  Result findALL(){
+        return  tagService.findAll();
+    }
 }

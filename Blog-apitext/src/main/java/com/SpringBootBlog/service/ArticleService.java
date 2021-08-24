@@ -1,6 +1,7 @@
 package com.SpringBootBlog.service;
 
 import com.SpringBootBlog.vo.Result;
+import com.SpringBootBlog.vo.params.ArticleParam;
 import com.SpringBootBlog.vo.params.PageParams;
 
 
@@ -45,4 +46,13 @@ public interface ArticleService {
       *@return
       */
     Result findArticleById(Long articleId);
+
+    /**
+      * 文章发布服务
+      *@Author 刘海
+      *@Data 15:10 2021/8/24
+      *@Param
+      *@return
+      */
+    Result publish(ArticleParam articleParam);
 }

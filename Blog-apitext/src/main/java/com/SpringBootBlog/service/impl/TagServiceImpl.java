@@ -6,6 +6,7 @@ import com.SpringBootBlog.dao.pojo.Tag;
 import com.SpringBootBlog.service.TagService;
 import com.SpringBootBlog.vo.Result;
 import com.SpringBootBlog.vo.TagVo;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,13 @@ public class TagServiceImpl implements TagService {
         //select * from tag where id in (1,2,3,4)
         List<Tag> tagList = tagMapper.findTagsByTagIds(tagIds);
         return Result.success(tagList);
+    }
+
+    @Override
+    public Result findAll() {
+        List<Tag> tags = this.tagMapper.selectList(new LambdaQueryWrapper<>());
+
+        return  Result.success(copyList(tags));
     }
 }
 

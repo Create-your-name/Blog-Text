@@ -22,6 +22,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
         registry.addInterceptor(loginInterceptor)
                 .addPathPatterns("/test")   // 需要拦截的 位置和地址
-                .addPathPatterns("/comments/create/change"); // 需要登入后才能实现的 地址
+                .addPathPatterns("/comments/create/change")// 需要登入后才能实现的 地址
+                .addPathPatterns("/articles/publish");
     }
 }

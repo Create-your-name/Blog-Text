@@ -1,5 +1,6 @@
 package com.SpringBootBlog.controller;
 
+import com.SpringBootBlog.common.aop.LogAnnotation;
 import com.SpringBootBlog.service.ArticleService;
 import com.SpringBootBlog.vo.Result;
 import com.SpringBootBlog.vo.params.ArticleParam;
@@ -18,6 +19,10 @@ public class ArticleController {
     * 首页文章列表
     * */
     @PostMapping
+    // 加上此注解 代表对接口记录日志
+    // 如何开发注解  common.aop 包内  所创建的 java类型的 Annotation 类别 就是 对于的注解
+    //使注解生效 需要 在所对应的 Annotation类型上加上  注解所对应的  注解
+    @LogAnnotation(module="文章",operator="获取文章列表")
         public Result listArticle(@RequestBody PageParams pageParams){
         return articleService.listAreticle(pageParams);
     }

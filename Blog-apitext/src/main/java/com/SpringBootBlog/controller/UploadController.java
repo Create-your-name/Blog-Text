@@ -22,7 +22,9 @@ public class UploadController {
     public Result upload(@RequestParam("image")MultipartFile file){
         //原始文件名称
         String originanlFilename= file.getOriginalFilename();
-        String fileName = UUID.randomUUID().toString() + "." + StringUtils.substringAfterLast(file.getOriginalFilename(), ".");
+        //唯一的文件名称
+        String fileName = UUID.randomUUID().toString() + "." + StringUtils.substringAfterLast(originanlFilename, ".");
+
         boolean upload = qiniuUtils.upload(file, fileName);
         if (upload){
             return Result.success(QiniuUtils.url + fileName);

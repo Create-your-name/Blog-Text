@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Component
 public class QiniuUtils {
 
-    public static  final String url = "https://static.mszlu.com/";
+    public static  final String url = "qyhatv850.hd-bkt.clouddn.com";
 
     @Value("77kvbxflvvC1NABkdXfOKi-aqY5QLb-fY-nEh2iE")
     private  String accessKey;
@@ -25,7 +25,7 @@ public class QiniuUtils {
     public  boolean upload(MultipartFile file,String fileName){
 
         //构造一个带指定 Region 对象的配置类
-        Configuration cfg = new Configuration(Region.huabei());
+        Configuration cfg = new Configuration(Region.huadong());
         //...其他参数参考类注释
         UploadManager uploadManager = new UploadManager(cfg);
         //...生成上传凭证，然后准备上传

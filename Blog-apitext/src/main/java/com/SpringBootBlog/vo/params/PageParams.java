@@ -15,4 +15,8 @@ public class PageParams {
     public int getPageSize() {
         return pageSize;
     }
+
+    private  Long categoryId;
+
+    private  Long tagId;
 }

@@ -17,6 +17,7 @@ import com.SpringBootBlog.vo.TagVo;
 import com.SpringBootBlog.vo.params.ArticleParam;
 import com.SpringBootBlog.vo.params.PageParams;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.joda.time.DateTime;
 import org.springframework.beans.BeanUtils;
@@ -39,11 +40,12 @@ public class ArticleServiceImpl implements ArticleService {
     private SysUserService sysUserService;
     @Autowired
     private ArticleTagMapper  articleTagMapper;
-    @Override
+
+  /*  @Override
     public Result listAreticle(PageParams pageParams) {
-         /*
-         *  1. 分页查询 article 数据库表
-         * */
+
+         //1. 分页查询 article 数据库表
+
         Page<Article> page = new Page<>(pageParams.getPage(),pageParams.getPageSize());
         LambdaQueryWrapper <Article> queryWrapper =new LambdaQueryWrapper<>();
         //  是否置顶排序
@@ -75,6 +77,18 @@ public class ArticleServiceImpl implements ArticleService {
         //不能直接返回
         List<ArticleVo> articlevOList = copyList(recodes,true,true);
         return  Result.success(articlevOList);
+    }*/
+
+    @Override
+    public Result listAreticle(PageParams pageParams) {
+        Page<Article> page = new Page<>(pageParams.getPage(),pageParams.getPageSize());
+        IPage<Article> articleIPage = this.articleMapper.listArticle(page,
+                pageParams.getCategoryId(),
+                pageParams.getTagId(),
+                pageParams.getYear(),
+                pageParams.getMonth());
+        List<Article> records =articleIPage.getRecords();
+        return Result.success(copyList(records,true,true));
     }
 
     @Override

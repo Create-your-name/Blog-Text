@@ -8,5 +8,5 @@ public class Archives {
 
     private  Integer month;
 
-    private  Integer conunt;
+    private  Integer count;
 }

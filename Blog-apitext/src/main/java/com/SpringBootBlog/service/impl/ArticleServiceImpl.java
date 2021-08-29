@@ -40,6 +40,8 @@ public class ArticleServiceImpl implements ArticleService {
     private SysUserService sysUserService;
     @Autowired
     private ArticleTagMapper  articleTagMapper;
+    @Autowired
+    private ArticleBodyMapper articleBodyMapper;
 
   /*  @Override
     public Result listAreticle(PageParams pageParams) {
@@ -175,7 +177,7 @@ public class ArticleServiceImpl implements ArticleService {
           *@return
           */
         Article article =new Article();
-        article.setAuthorId(sysUser.getId());
+     /*   article.setAuthorId(sysUser.getId());*/
         // 基本的 文章信息的 设置
         article.setWeight(Article.Article_Common);
         article.setViewCounts(0);
@@ -183,7 +185,7 @@ public class ArticleServiceImpl implements ArticleService {
         article.setSummary(articleParam.getSummary());
         article.setCommentCounts(0);
         article.setCreateDate(System.currentTimeMillis());
-        article.setCategoryId(articleParam.getCategory().getId());
+        article.setCategoryId(Long.parseLong(articleParam.getCategory().getId()));
         //插入后 生成文章id
         this.articleMapper.insert(article);
         // tag
@@ -192,7 +194,7 @@ public class ArticleServiceImpl implements ArticleService {
             for(TagVo tag : tags) {
                 Long articleId = article.getId();
                 ArticleTag articleTag = new ArticleTag();
-                articleTag.setTagId(tag.getId());
+                articleTag.setTagId(Long.parseLong(tag.getId()));
                 articleTag.setArticleId(articleId);
                 articleTagMapper.insert(articleTag);
             }
@@ -234,23 +236,21 @@ public class ArticleServiceImpl implements ArticleService {
 
     private  ArticleVo copy (Article article,boolean isTag ,boolean isAuthor ,boolean isBody , boolean isCategory){
         ArticleVo articleVo =new ArticleVo();
+        //分布式id 拓展操作
+        articleVo.setId(String.valueOf(article.getId()));
         BeanUtils.copyProperties(article,articleVo);
         articleVo.setCreateDate(new DateTime(article.getCreateDate()).toString("yyyy-MM-dd HH：mm"));
         //并不是所有接口都需要标签 作者信息
        if (isTag){
             Long articleId = article.getId();
-            articleVo.setTags(tagService.findTagsByArtickleId(articleId));
+            articleVo.setTags(tagService.findTagsByArticleId(articleId));
         }
          if (isAuthor){
             Long authorId =article.getAuthorId();
             articleVo.setAuthor(sysUserService.findUserById(authorId).getNickname());
         }
-
-        if (isAuthor){
-            Long authorId =article.getAuthorId();
-            articleVo.setAuthor(sysUserService.findUserById(authorId).getNickname());
-        }
         if (isBody){
+         /*   Long categoryId2 = 1405916999732707330L;*/
             Long bodyId = article.getBodyId();
             articleVo.setBody(findArticleBodyById(bodyId));
         }
@@ -260,10 +260,6 @@ public class ArticleServiceImpl implements ArticleService {
         }
         return articleVo;
     }
-
-    @Autowired
-    private ArticleBodyMapper articleBodyMapper;
-
     private ArticleBodyVo findArticleBodyById(Long bodyId) {
         ArticleBody articleBody = articleBodyMapper.selectById(bodyId);
         ArticleBodyVo articleBodyVo = new ArticleBodyVo();

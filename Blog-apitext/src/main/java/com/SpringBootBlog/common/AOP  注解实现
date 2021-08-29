@@ -1,0 +1,11 @@
+SpringBoot 所有注解的实现 都需要的 声明的 注解
+@Target({ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+
+SpringBoot 定义的 切面的 注解实现
+//aop 定义一个切面，切面定义了切点和通知的关系
+
+@Aspect // 切面  定义了 通知和 切点的关系
+@Component
+@Slf4j //记录日志的 注解

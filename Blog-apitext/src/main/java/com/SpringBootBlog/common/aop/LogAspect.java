@@ -18,14 +18,12 @@ import java.lang.reflect.Method;
 @Aspect // 切面  定义了 通知和 切点的关系
 @Slf4j  //记录日志的 注解
 public class LogAspect {
+    @Pointcut("@annotation(com.SpringBootBlog.common.aop.LogAnnotation)")
+    public void pt(){}
 
-    @Pointcut("@annotation(com.SpringBootBlog.common.aop.LogAnnotation)")//声明切点 路径
-    public  void py (){
-
-    }
-
-    @Around("py()")
-    public  Object log (ProceedingJoinPoint joinPoint) throws Throwable {
+    //环绕通知
+    @Around("pt()")
+    public Object log(ProceedingJoinPoint joinPoint) throws Throwable {
         long beginTime = System.currentTimeMillis();
         //执行方法
         Object result = joinPoint.proceed();
@@ -35,7 +33,7 @@ public class LogAspect {
         recordLog(joinPoint, time);
         return result;
     }
-    //记录日志的 代码
+
     private void recordLog(ProceedingJoinPoint joinPoint, long time) {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
@@ -55,7 +53,6 @@ public class LogAspect {
         log.info("params:{}",params);
 
         //获取request 设置IP地址
-        // 查询的是 网页中的Remote Address 中的
         HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
         log.info("ip:{}", IpUtils.getIpAddr(request));
 

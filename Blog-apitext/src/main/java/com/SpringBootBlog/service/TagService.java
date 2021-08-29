@@ -6,7 +6,7 @@ import com.SpringBootBlog.vo.TagVo;
 import java.util.List;
 
 public interface TagService {
-    List<TagVo> findTagsByArtickleId (Long articleId);
+    List<TagVo> findTagsByArticleId (Long articleId);
 
     Result hots(int limit);
 

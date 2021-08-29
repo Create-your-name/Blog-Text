@@ -15,13 +15,13 @@ public class ThreadService {
     @Async ("taskExecutor")     // 声明这是子线程 去执行的 方法
     public void updateArticleViewCount(ArticleMapper articleMapper, Article article) {
         int viewCounts = article.getViewCounts();
-        Article articleUpdate =new Article();
+        Article articleUpdate = new Article();
         articleUpdate.setViewCounts(viewCounts +1);
-        LambdaUpdateWrapper<Article> updateWrapper =new LambdaUpdateWrapper<>();
+        LambdaUpdateWrapper<Article> updateWrapper = new LambdaUpdateWrapper<>();
         updateWrapper.eq(Article::getId,article.getId());
-        // 设置一个 为了在多线程环境下 线程安全
+        //设置一个 为了在多线程的环境下 线程安全
         updateWrapper.eq(Article::getViewCounts,viewCounts);
-        //update article set view——conunt=100 where view——count=99 and id= 11
+        // update article set view_count=100 where view_count=99 and id=11
         articleMapper.update(articleUpdate,updateWrapper);
         try {
             Thread.sleep( 5000);

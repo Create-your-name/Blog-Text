@@ -23,6 +23,7 @@ public class TagServiceImpl implements TagService {
     public TagVo copy(Tag tag){
         TagVo tagVo = new TagVo();
         BeanUtils.copyProperties(tag,tagVo);
+        tagVo.setId(String.valueOf(tag.getId()));
         return tagVo;
     }
     public List<TagVo> copyList(List<Tag> tagList){
@@ -34,7 +35,7 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public List<TagVo> findTagsByArtickleId(Long articleId) {
+    public List<TagVo> findTagsByArticleId(Long articleId) {
         //mybatisplus 无法进行多表查询
         List<Tag> tags = tagMapper.findTagsByArticleId(articleId);
         return copyList(tags);

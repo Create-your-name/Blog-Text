@@ -16,5 +16,5 @@ public interface ArticleMapper extends BaseMapper<Article> {
                                 Long categoryId,
                                 Long tagId,
                                 String year,
-                                String mounth);
+                                String month);
 }

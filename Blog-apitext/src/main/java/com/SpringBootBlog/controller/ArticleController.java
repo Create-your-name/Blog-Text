@@ -1,6 +1,7 @@
 package com.SpringBootBlog.controller;
 
 import com.SpringBootBlog.common.aop.LogAnnotation;
+import com.SpringBootBlog.common.cache.Cache;
 import com.SpringBootBlog.service.ArticleService;
 import com.SpringBootBlog.vo.Result;
 import com.SpringBootBlog.vo.params.ArticleParam;
@@ -23,6 +24,7 @@ public class ArticleController {
     // 如何开发注解  common.aop 包内  所创建的 java类型的 Annotation 类别 就是 对于的注解
     //使注解生效 需要 在所对应的 Annotation类型上加上  注解所对应的  注解
     @LogAnnotation(module="文章",operator="获取文章列表")
+    @Cache(expire = 5* 60 *1000 ,name = "listarticle")
         public Result listArticle(@RequestBody PageParams pageParams){
         return articleService.listAreticle(pageParams);
     }
@@ -34,6 +36,7 @@ public class ArticleController {
       *@return
       */
     @PostMapping("hot")
+    @Cache(expire = 5* 60 *1000 ,name = "hot_article")
     public Result hotArticle(){
         int limit = 5;
         return articleService.hotArtice(limit);
@@ -46,6 +49,7 @@ public class ArticleController {
       *@return
       */
     @PostMapping("new")
+    @Cache(expire = 5* 60 *1000 ,name = "news_article")
     public Result newArticles(){
         int limit = 5;
         return articleService.newArticles(limit);

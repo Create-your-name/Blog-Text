@@ -8,18 +8,29 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Blog-apitext" />
+        <module name="Blog-admin" />
         <module name="Blog-demotext" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="blog-admin" target="1.8" />
+      <module name="blog-adminLH" target="8" />
+      <module name="blog-adminLh" target="8" />
       <module name="Blog-api" target="8" />
+      <module name="Blog-demo" target="1.8" />
+      <module name="untitled" target="8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Blog-admin" options="-parameters" />
       <module name="Blog-api" options="-parameters" />
       <module name="Blog-apitext" options="-parameters" />
       <module name="Blog-demotext" options="-parameters" />
+      <module name="blog-admin" options="-parameters" />
+      <module name="blog-adminLH" options="-parameters" />
+      <module name="blog-adminLh" options="-parameters" />
+      <module name="untitled" options="-parameters" />
     </option>
   </component>
 </project>
